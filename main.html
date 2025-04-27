@@ -1,0 +1,103 @@
+
+Roni Burd
+7:18 PM (1 hour ago)
+to me
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Big Number Display</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<style>
+  :root { --accent:#2196f3; font-family: system-ui, sans-serif; }
+
+  html,body{
+    margin:0;
+    padding:0;
+    height:100%;
+    background:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  /* ---------- Input screen ---------- */
+  #inputPane{
+    display:flex;
+    flex-direction:column;
+    gap:1rem;
+    width:80%;
+    max-width:320px;
+    text-align:center;
+  }
+  #numberInput{
+    font-size:1.25rem;
+    padding:.6rem 1rem;
+    border:2px solid var(--accent);
+    border-radius:8px;
+    width:100%;
+    box-sizing:border-box;
+  }
+  #showBtn{
+    font-size:1.25rem;
+    padding:.6rem;
+    background:var(--accent);
+    color:#fff;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+  }
+  #showBtn:active{opacity:.8;}
+
+  /* ---------- Big number screen ---------- */
+  #displayPane{
+    display:none;          /* hidden until a number is entered */
+    width:100%;
+    height:100%;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    font-size:30vw;        /* scales with viewport width */
+    font-weight:700;
+    line-height:1;
+  }
+</style>
+</head>
+<body>
+
+  <!-- Input view -->
+  <div id="inputPane">
+    <label for="numberInput">Enter a number 1 – 10:</label>
+    <input id="numberInput" type="number" min="1" max="10" required />
+    <button id="showBtn">Show</button>
+  </div>
+
+  <!-- Full-screen display view -->
+  <div id="displayPane"></div>
+
+<script>
+  const inputPane   = document.getElementById('inputPane');
+  const displayPane = document.getElementById('displayPane');
+  const numberInput = document.getElementById('numberInput');
+  const showBtn     = document.getElementById('showBtn');
+
+  function showNumber () {
+    const val = Number(numberInput.value.trim());
+    if (val >= 1 && val <= 10) {
+      displayPane.textContent = val;
+      inputPane.style.display = 'none';
+      displayPane.style.display = 'flex';
+    } else {
+      alert('Please enter an integer from 1 to 10.');
+      numberInput.focus();
+    }
+  }
+
+  showBtn.addEventListener('click', showNumber);
+  numberInput.addEventListener('keydown', e => { if (e.key === 'Enter') showNumber(); });
+</script>
+
+</body>
+</html>
